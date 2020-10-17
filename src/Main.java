@@ -40,9 +40,10 @@ public class Main extends PApplet implements OnMessageListener {
 		
 		
 		udp = new UDPConection ();
+		udp.setObserver(this);
 		udp.start();
 		
-		udp.setObserver(this);
+		
 		
 		
 		 try {
@@ -65,10 +66,21 @@ public class Main extends PApplet implements OnMessageListener {
 		
 		for (int i =0; i<comidas.size(); i++) {
 		Comida comida = comidas.get(i);
-		System.out.println(comida);
+		//System.out.println(comida);
 			if (comida.getType().equals("burrito")) {
-				image (burrito, 0, 0, 50, 50);
-				ellipse(100, 100, 50, 50);
+				image (burrito, 0, 0, 100, 100);
+			}
+			
+			if (comida.getType().equals("pizza")) {
+				image (pizza, 120, 0, 100, 100);
+			}
+			
+			if (comida.getType().equals("hotdog")) {
+				image (pizza, 0, 120, 100, 100);
+			}
+			
+			if (comida.getType().equals("burger")) {
+				image (burger, 120, 120, 100, 100 );
 			}
 		}
 		
@@ -86,6 +98,7 @@ public class Main extends PApplet implements OnMessageListener {
 	public void recibirMensaje(Comida comida) {
 		// TODO Auto-generated method stub
 		comidas.add(comida);
+		System.out.println("aiuda");
 		
 	}
 

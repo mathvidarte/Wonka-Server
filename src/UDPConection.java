@@ -17,9 +17,9 @@ public class UDPConection extends Thread {
 	private OnMessageListener observer;
 	
 	
-	public void setObserver (Main main) {
-		this.main = main;
-	}
+	  public void setObserver (OnMessageListener observer) {
+	    	this.observer = observer;
+	    }
  
     public void run () {
 
@@ -42,7 +42,9 @@ public class UDPConection extends Thread {
                 
                 Comida food = gson.fromJson(mensaje, Comida.class);
                 
-                
+                if (food != null) {
+                	observer.recibirMensaje(food);
+                }
                 
                
                 
@@ -61,9 +63,7 @@ public class UDPConection extends Thread {
 
     }
     
-    public void setObserver (OnMessageListener observer) {
-    	this.observer = observer;
-    }
+  
 
     public void sendMessage (String mensaje) {
         new Thread (
