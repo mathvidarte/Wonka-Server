@@ -14,6 +14,8 @@ public class UDPConection extends Thread {
 	
 	private DatagramSocket socket;
 	private Main main;
+	private OnMessageListener observer;
+	
 	
 	public void setObserver (Main main) {
 		this.main = main;
@@ -42,6 +44,11 @@ public class UDPConection extends Thread {
                 
                 
                 
+               
+                
+                
+                
+                
                 
                 
             }
@@ -52,6 +59,10 @@ public class UDPConection extends Thread {
 			e.printStackTrace();
 		}
 
+    }
+    
+    public void setObserver (OnMessageListener observer) {
+    	this.observer = observer;
     }
 
     public void sendMessage (String mensaje) {

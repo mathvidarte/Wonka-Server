@@ -7,7 +7,7 @@ import model.Comida;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Main extends PApplet {
+public class Main extends PApplet implements OnMessageListener {
 	
 	private PImage burrito;
 	private PImage burger;
@@ -15,7 +15,8 @@ public class Main extends PApplet {
 	private PImage pizza;
 	private UDPConection udp;
 	private Comida food;
-	private ArrayList <Comida> comidas; 
+	private String miComida;
+	private ArrayList <Comida> comidas;  
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -36,13 +37,13 @@ public class Main extends PApplet {
 		pizza = loadImage ("img/pizza.jpg");
 		
 		comidas = new ArrayList <Comida> ();
-		comidas.add(new Comida ("burrito"));
-		comidas.add(new Comida ("pizza"));
-		comidas.add(new Comida ("burger"));
-		comidas.add(new Comida ("hotdog"));
+		
 		
 		udp = new UDPConection ();
 		udp.start();
+		
+		udp.setObserver(this);
+		
 		
 		 try {
              InetAddress n = InetAddress.getLocalHost();
@@ -62,6 +63,15 @@ public class Main extends PApplet {
 	public void draw() {
 		background (255);
 		
+		for (int i =0; i<comidas.size(); i++) {
+		Comida comida = comidas.get(i);
+		System.out.println(comida);
+			if (comida.getType().equals("burrito")) {
+				image (burrito, 0, 0, 50, 50);
+				ellipse(100, 100, 50, 50);
+			}
+		}
+		
 		
 		
 				
@@ -70,8 +80,12 @@ public class Main extends PApplet {
 	public void mousePressed () {
 		udp.sendMessage("ENVIO");
 	}
-	
-	public void recibir () {
+
+
+	@Override
+	public void recibirMensaje(Comida comida) {
+		// TODO Auto-generated method stub
+		comidas.add(comida);
 		
 	}
 

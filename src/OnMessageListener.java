@@ -1,6 +1,7 @@
+import model.Comida;
 
 public interface OnMessageListener {
 	
-	void recibirMensaje (String msg);
+	void recibirMensaje (Comida comida);
 
 }
